@@ -1,2 +1,2 @@
-# 목록
-- 오브젝트 - 조영호
+# Practice Projects
+- [object] 오브젝트 - 조영호
