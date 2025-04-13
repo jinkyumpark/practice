@@ -1,4 +1,4 @@
-package com.jinkyumpark.craftingInterpreters.java;
+package com.jinkyumpark.craftingInterpreters.java.lox;
 
 enum TokenType {
     // 단일 문자 토큰

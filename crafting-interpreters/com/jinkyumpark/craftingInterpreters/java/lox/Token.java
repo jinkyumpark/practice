@@ -1,4 +1,4 @@
-package com.jinkyumpark.craftingInterpreters.java;
+package com.jinkyumpark.craftingInterpreters.java.lox;
 
 public class Token {
     final TokenType type;

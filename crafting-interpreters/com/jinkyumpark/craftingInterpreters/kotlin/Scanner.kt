@@ -22,8 +22,8 @@ class Scanner(
 
     private fun scanToken() {
         when (val c = advance()) {
-            '(' -> addToken(TokenType.LEFT_PAREN)
-            ')' -> addToken(TokenType.RIGHT_PAREN)
+            '(' -> addToken(TokenType.LEFT_PARENTHESIS)
+            ')' -> addToken(TokenType.RIGHT_PARENTHESIS)
             '{' -> addToken(TokenType.LEFT_BRACE)
             '}' -> addToken(TokenType.RIGHT_BRACE)
             ',' -> addToken(TokenType.COMMA)
