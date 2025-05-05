@@ -43,15 +43,31 @@ class Lox {
         val scanner = Scanner(source)
         val tokens = scanner.scanAndGetTokens()
 
+        val parser = Parser(tokens)
+        val expression = parser.parse()
+
+        if (isHadError) return
+
         for (token in tokens) {
             println(token)
         }
+
+        println(expression)
     }
 
     companion object {
-        fun reportError(line: Int, message: String) {
-            System.err.printf("[line $line] Error: $message")
+        fun reportError(line: Int, where: String, message: String) {
+            System.err.printf("[line $line] Error $where: $message")
             isHadError = true
+        }
+
+        fun reportError(line: Int, message: String) = reportError(line, "", message)
+
+        fun reportError(token: Token, message: String) {
+            when (token.type) {
+                TokenType.EOF -> reportError(token.lineNumber, "at end ", message)
+                else -> reportError(token.lineNumber, "at '${token.lexeme}'", message)
+            }
         }
 
         private var isHadError = false
