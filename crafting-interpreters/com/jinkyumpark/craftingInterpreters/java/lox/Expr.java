@@ -1,6 +1,23 @@
 package com.jinkyumpark.craftingInterpreters.java.lox;
 
-public class Expr {
+abstract class Expr {
+    interface Visitor<R> {
+//        R visitAssignExpr(Assign expr);
+        R visitBinaryExpr(Binary expr);
+//        R visitCallExpr(Call expr);
+//        R visitGetExpr(Get expr);
+        R visitGroupingExpr(Grouping expr);
+        R visitLiteralExpr(Literal expr);
+//        R visitLogicalExpr(Logical expr);
+//        R visitSetExpr(Set expr);
+//        R visitSuperExpr(Super expr);
+//        R visitThisExpr(This expr);
+        R visitUnaryExpr(Unary expr);
+//        R visitVariableExpr(Variable expr);
+    }
+
+    abstract <R> R accept(Visitor<R> visitor);
+
     static class Unary extends Expr {
         final Token operator;
         final Expr right;
@@ -8,6 +25,11 @@ public class Expr {
         public Unary(Token operator, Expr right) {
             this.operator = operator;
             this.right = right;
+        }
+
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitUnaryExpr(this);
         }
     }
 
@@ -21,6 +43,11 @@ public class Expr {
             this.operator = operator;
             this.right = right;
         }
+
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitBinaryExpr(this);
+        }
     }
 
     static class Literal extends Expr {
@@ -29,6 +56,11 @@ public class Expr {
         public Literal(Object value) {
             this.value = value;
         }
+
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitLiteralExpr(this);
+        }
     }
 
     static class Grouping extends Expr {
@@ -36,6 +68,11 @@ public class Expr {
 
         public Grouping(Expr expression) {
             this.expression = expression;
+        }
+
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitGroupingExpr(this);
         }
     }
 }
